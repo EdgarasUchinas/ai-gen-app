@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Character Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .character-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .character-image {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .audio-player {
+            width: 100%;
+            margin-top: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="character-card">
+        <h1>D&D Character Viewer</h1>
+        <img id="characterImage" class="character-image" alt="Character Image">
+        <audio id="characterAudio" class="audio-player" controls>
+            <source src="character_description.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <script>
+        // Update the image source when it's available
+        const imageElement = document.getElementById('characterImage');
+        
+        // Function to read the image URL from the text file
+        async function loadImageUrl() {
+            try {
+                const response = await fetch('image_url.txt');
+                const imageUrl = await response.text();
+                imageElement.src = imageUrl.trim();
+            } catch (error) {
+                console.error('Error loading image URL:', error);
+            }
+        }
+
+        // Load the image URL when the page loads
+        loadImageUrl();
+    </script>
+</body>
+</html>
